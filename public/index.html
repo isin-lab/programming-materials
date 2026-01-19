@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./cd.svg" />
+    <link rel="apple-touch-icon" href="./cd.svg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta property="og:title" content="Programming materials">
+    <meta property="og:description" content="Обучающая демонстрация для разработчиков">
+    <meta property="og:url" content="https://isin-lab.github.io/">
+    <meta property="og:image" content="./cd.svg"> <!-- Добавлено для Open Graph -->
+    <meta name="description" content="Еженедельные обучающие демонстрации для разработчиков от Programming materials">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <!-- Cherry Bomb One шрифт через Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet">
+    
+    <!-- Дополнительный шрифт для основного текста (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>Programming Materials</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Проверка пути к иконке -->
+    <script>
+      // Проверяем, доступен ли файл иконки
+      window.addEventListener('load', function() {
+        var link = document.querySelector('link[rel="icon"]');
+        var img = new Image();
+        img.onload = function() {
+          console.log('Иконка успешно загружена:', link.href);
+        };
+        img.onerror = function() {
+          console.error('Не удалось загрузить иконку по пути:', link.href);
+          // Пробуем альтернативный путь
+          link.href = 'favicon.ico';
+        };
+        img.src = link.href;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,576 @@
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.menu-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 600px;
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--glass-border);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.menu-container.open {
+  transform: translateX(0);
+}
+
+.menu-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-tertiary);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.menu-title {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0;
+}
+
+.menu-title svg {
+  color: var(--accent-primary);
+  font-size: 1rem;
+}
+
+/* КНОПКА ЗАКРЫТИЯ В СТИЛЕ GLASS */
+.glass-button-menu { 
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all var(--transition-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  height: 40px;
+  min-width: auto;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.glass-button-menu:hover {
+  background: rgba(157, 80, 187, 0.15);
+}
+
+.glass-button-menu:active {
+  transform: scale(0.96);
+}
+
+.menu-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lessons-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* ИСПРАВЛЕНИЕ КАРТОЧЕК - ГЛАВНАЯ ПРОБЛЕМА */
+.lesson-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  min-height: 90px;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+}
+
+.lesson-card.available {
+  cursor: pointer;
+}
+
+.lesson-card.available:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--accent-primary);
+  transform: translateX(3px);
+}
+
+.lesson-card.unavailable {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+/* ИКОНКА */
+.lesson-icon {
+  font-size: 1.2rem;
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(78, 205, 196, 0.1);
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin: 12px 0 12px 12px;
+}
+
+.lesson-card.unavailable .lesson-icon {
+  opacity: 0.6;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.lesson-info {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 12px 12px 0;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lesson-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  margin-top: 0;
+}
+
+.lesson-card.unavailable .lesson-title {
+  color: var(--text-tertiary);
+}
+
+.lesson-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+  opacity: 0.9;
+  margin-top: 0;
+}
+
+.lesson-card.unavailable .lesson-description {
+  color: var(--text-tertiary);
+  opacity: 0.8;
+}
+
+.lesson-tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.lesson-tag {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: var(--accent-primary);
+  border: 1px solid rgba(78, 205, 196, 0.15);
+  font-weight: 500;
+}
+
+.lesson-card.unavailable .lesson-tag {
+  opacity: 0.6;
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-tertiary);
+}
+
+/* СТАТУСЫ - ИСПРАВЛЯЕМ РАСПОЛОЖЕНИЕ */
+.lesson-status {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 10px;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.available-status {
+  background: rgba(38, 162, 105, 0.15);
+  color: var(--accent-success);
+  border: 1px solid rgba(38, 162, 105, 0.25);
+}
+
+.unavailable-status {
+  background: rgba(255, 167, 38, 0.1);
+  color: var(--accent-warning);
+  border: 1px solid rgba(255, 167, 38, 0.2);
+}
+
+.lesson-status svg {
+  font-size: 0.65rem;
+}
+
+/* ============================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ
+   ============================================ */
+
+@media (max-width: 768px) {
+  .menu-container {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .menu-header {
+    padding: 14px 16px;
+    min-height: 60px;
+  }
+  
+  .menu-title {
+    font-size: 1.1rem;
+    gap: 10px;
+  }
+  
+  .menu-title svg {
+    font-size: 1.1rem;
+  }
+  
+  .glass-button-menu {
+    width: auto;
+    height: 40px;
+    min-width: auto;
+    padding: 8px 16px;
+  }
+  
+  .menu-close-text {
+    display: inline;
+  }
+  
+  .glass-button-menu svg {
+    font-size: 1rem;
+  }
+  
+  .menu-content {
+    padding: 12px;
+  }
+  
+  .lessons-grid {
+    gap: 10px;
+  }
+  
+  /* КОМПАКТНЫЕ КАРТОЧКИ НА МОБИЛЬНЫХ */
+  .lesson-card {
+    min-height: 80px;
+    border-radius: 10px;
+  }
+  
+  .lesson-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+    margin: 10px 0 10px 10px;
+  }
+  
+  .lesson-info {
+    padding: 10px 10px 10px 0;
+    margin-left: 10px;
+  }
+  
+  .lesson-title {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+    padding-right: 70px; /* Место для статуса */
+  }
+  
+  .lesson-description {
+    font-size: 0.82rem;
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+  
+  .lesson-tags {
+    gap: 4px;
+  }
+  
+  .lesson-tag {
+    font-size: 0.7rem;
+    padding: 2px 5px;
+  }
+  
+  .lesson-status {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    top: 8px;
+    right: 8px;
+  }
+  
+  .lesson-status svg {
+    font-size: 0.6rem;
+  }
+  
+  /* Убираем ховер-эффекты на мобильных */
+  .lesson-card.available:hover {
+    transform: none;
+    background: rgba(255, 255, 255, 0.02);
+  }
+  
+  .lesson-card.available:active {
+    background: rgba(255, 255, 255, 0.05);
+    transform: scale(0.98);
+  }
+  
+  .glass-button-menu:hover {
+    transform: none;
+  }
+  
+  .glass-button-menu:active {
+    transform: scale(0.9);
+    background: rgba(157, 80, 187, 0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-container {
+    max-width: 100%;
+  }
+  
+  .menu-header {
+    padding: 12px 14px;
+    min-height: 56px;
+  }
+  
+  .menu-title {
+    font-size: 1rem;
+  }
+  
+  .glass-button-menu {
+    padding: 6px 12px;
+    height: 38px;
+    font-size: 0.85rem;
+  }
+  
+  .menu-close-text {
+    display: inline;
+  }
+  
+  .menu-content {
+    padding: 10px;
+  }
+  
+  .lessons-grid {
+    gap: 8px;
+  }
+  
+  .lesson-card {
+    min-height: 75px;
+  }
+  
+  .lesson-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    margin: 8px 0 8px 8px;
+  }
+  
+  .lesson-info {
+    padding: 8px 8px 8px 0;
+    margin-left: 8px;
+  }
+  
+  .lesson-title {
+    font-size: 0.9rem;
+    padding-right: 65px;
+  }
+  
+  .lesson-description {
+    font-size: 0.78rem;
+    margin-bottom: 4px;
+  }
+  
+  .lesson-tag {
+    font-size: 0.68rem;
+    padding: 1px 4px;
+  }
+  
+  .lesson-status {
+    font-size: 0.68rem;
+    padding: 2px 5px;
+    top: 7px;
+    right: 7px;
+  }
+}
+
+@media (max-width: 360px) {
+  .menu-header {
+    padding: 10px 12px;
+    min-height: 52px;
+  }
+  
+  .menu-title {
+    font-size: 0.95rem;
+  }
+  
+  .glass-button-menu {
+    padding: 5px 10px;
+    height: 36px;
+    font-size: 0.8rem;
+    gap: 5px;
+  }
+  
+  .menu-close-text {
+    display: inline;
+  }
+  
+  .glass-button-menu svg {
+    font-size: 0.9rem;
+  }
+  
+  .menu-content {
+    padding: 8px;
+  }
+  
+  .lessons-grid {
+    gap: 6px;
+  }
+  
+  .lesson-card {
+    min-height: 70px;
+  }
+  
+  .lesson-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    margin: 6px 0 6px 6px;
+  }
+  
+  .lesson-info {
+    padding: 6px 6px 6px 0;
+    margin-left: 6px;
+  }
+  
+  .lesson-title {
+    font-size: 0.85rem;
+    padding-right: 60px;
+  }
+  
+  .lesson-description {
+    font-size: 0.75rem;
+  }
+  
+  .lesson-tag {
+    font-size: 0.65rem;
+  }
+  
+  .lesson-status {
+    font-size: 0.65rem;
+    padding: 2px 4px;
+    top: 6px;
+    right: 6px;
+  }
+}
+
+/* Для очень маленьких экранов скрываем текст на кнопке */
+@media (max-width: 320px) {
+  .glass-button-menu .menu-close-text {
+    display: none;
+  }
+  
+  .glass-button-menu {
+    padding: 6px;
+    width: 40px;
+    justify-content: center;
+  }
+  
+  .glass-button-menu svg {
+    margin: 0;
+  }
+}
+
+/* Для горизонтальной ориентации */
+@media (max-width: 768px) and (orientation: landscape) {
+  .menu-container {
+    max-width: 450px;
+    right: 0;
+  }
+  
+  .menu-content {
+    padding: 10px;
+  }
+  
+  .lesson-card {
+    min-height: 70px;
+  }
+  
+  .lesson-info {
+    padding-right: 80px;
+  }
+}
+
+/* Анимация для переполнения */
+.menu-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.menu-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.menu-content::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 3px;
+}
+
+.menu-content::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-secondary);
+}

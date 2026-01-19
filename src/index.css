@@ -1,0 +1,403 @@
+/* ============================================
+   БАЗОВЫЕ СТИЛИ И ПЕРЕМЕННЫЕ
+   ============================================ */
+
+:root {
+  /* Шрифты */
+  --font-logo: 'Cherry Bomb One', cursive;
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-secondary: 'Segoe UI', system-ui, sans-serif;
+  
+  /* Цветовая палитра - темная тема с акцентами */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-tertiary: #6e7681;
+  
+  /* Акцентные цвета */
+  --accent-primary: #4ecdc4;
+  --accent-secondary: #9d50bb;
+  --accent-telegram: #0088cc;
+  --accent-success: #26a269;
+  --accent-warning: #ffa726;
+  --accent-error: #ff6b6b;
+  
+  /* Стеклянный эффект */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(15px);
+  
+  /* Тени */
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.2);
+  --shadow-heavy: 0 15px 60px rgba(0, 0, 0, 0.3);
+  
+  /* Анимации */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Максимальная ширина контента */
+  --max-width: 1480px;
+  --border-radius: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  font-size: 16px; /* Базовый размер шрифта для десктопа */
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Утилитарные классы */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all var(--transition-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  height: 44px;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.glass-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.7s ease;
+  z-index: -1;
+}
+
+.glass-button:hover::before {
+  left: 100%;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.glass-button:active {
+  transform: translateY(0);
+}
+
+.telegram-button {
+  background: linear-gradient(135deg, 
+    rgba(0, 136, 204, 0.15), 
+    rgba(0, 136, 204, 0.1));
+  border-color: rgba(0, 136, 204, 0.2);
+}
+
+.telegram-button:hover {
+  background: linear-gradient(135deg, 
+    rgba(0, 136, 204, 0.2), 
+    rgba(0, 136, 204, 0.15));
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+/* ============================================
+   УЛУЧШЕННАЯ МОБИЛЬНАЯ АДАПТАЦИЯ
+   ============================================ */
+
+/* Планшеты (768px и меньше) */
+@media (max-width: 768px) {
+  html, body {
+    font-size: 15px; /* Уменьшаем базовый размер шрифта */
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  /* Убираем горизонтальный скролл и уменьшаем отступы */
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 16px;
+  }
+  
+  /* Улучшаем кнопки для мобильных */
+  .glass-button {
+    height: 46px;
+    min-width: auto;
+    padding: 0 20px;
+    font-size: 1rem;
+  }
+  
+  /* Увеличиваем иконки */
+  .glass-button svg {
+    font-size: 1.2rem;
+  }
+  
+  /* Улучшаем читаемость текста на мобильных */
+  h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  h3 {
+    font-size: 1.3rem !important;
+    line-height: 1.4 !important;
+  }
+  
+  p, li, span, div {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* Убираем ховер-эффекты на мобильных (оставляем только для десктопа) */
+  .glass-button:hover {
+    transform: none;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  /* Вместо ховера используем активное состояние */
+  .glass-button:active {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(0.98);
+  }
+}
+
+/* Мобильные устройства (480px и меньше) */
+@media (max-width: 480px) {
+  html, body {
+    font-size: 14px;
+  }
+  
+  .container {
+    padding: 0 12px;
+  }
+  
+  .glass-button {
+    height: 44px;
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 0.95rem;
+  }
+  
+  h1 {
+    font-size: 1.6rem !important;
+  }
+  
+  h2 {
+    font-size: 1.4rem !important;
+  }
+  
+  h3 {
+    font-size: 1.2rem !important;
+  }
+  
+  /* Увеличиваем все интерактивные элементы для удобного касания */
+  button,
+  a.button-link,
+  .clickable-area {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Очень маленькие экраны (360px и меньше) */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  .glass-button {
+    height: 42px;
+    padding: 0 14px;
+    font-size: 0.9rem;
+  }
+  
+  .glass-button svg {
+    font-size: 1.1rem;
+  }
+}
+
+/* Предотвращаем зум на input focus на iOS */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  textarea,
+  select {
+    font-size: 16px !important;
+    min-height: 44px;
+  }
+}
+
+/* Улучшаем скролл на мобильных */
+@media (max-width: 768px) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Гарантируем, что все карточки идут по одной в ряд */
+  .cards-grid,
+  .principles-grid,
+  .benefits-grid,
+  .animations-grid,
+  .mobile-tips,
+  .code-examples {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Доступность */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Минимальные размеры для тач-элементов */
+@media (max-width: 768px) {
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+  }
+  
+  .glass-button {
+    touch-action: manipulation;
+  }
+}
+
+/* Стили для заглушки загрузки */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 40px;
+  text-align: center;
+  gap: 20px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.not-found {
+  padding: 60px;
+  text-align: center;
+}
+
+.not-found h2 {
+  color: var(--accent-primary);
+  margin-bottom: 20px;
+}
+
+.not-found p {
+  color: var(--text-secondary);
+}
